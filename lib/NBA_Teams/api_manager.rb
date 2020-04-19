@@ -2,25 +2,54 @@ require 'httparty'
 require 'pry'
 require_relative './team'
 class APIManager
-  BASE_URL = "https://www.balldontlie.io/api/v1/"
 
   def self.get_nba_teams
-    response = HTTParty.get(BASE_URL + "teams")
-    teams_hash = response["data"]
+    url = "https://www.balldontlie.io/api/v1/"
 
-    Team.create_team_from_api(teams_hash)
-    # teams_hash.collect {|t| "#{t['city']} #{t['name']}"} => displays each team.
+      response = HTTParty.get(url + "teams")
+      response.parsed_response
+      
+      teams_hash = response["data"]
+      Team.create_team_from_api(teams_hash)
   end
 
   def self.get_nba_players
-    response = HTTParty.get(BASE_URL + "players")
-    player_data = response["data"]
-    Player.create_from_api(player_data)
+    url = "https://www.balldontlie.io/api/v1/"
+      response = HTTParty.get(url + "players?page=1")
+
+      data = response["data"]
+      meta = response["meta"]
+
+      players_total = meta["total_count"]
+      players_per_page = data.count
+
+      page = 1
+      last_page = meta["total_pages"]
+      player_info = []
+
+      while page <= last_page
+        page_url = "https://www.balldontlie.io/api/v1/players?page=#{page}"
+        puts page_url
+        puts "page: #{page}"
+        puts ""
+
+        page_response = HTTParty.get(page_url)
+        players_hash = page_response["data"]
+        puts page_response
+        # Player.create_players_from_api(players_hash)
+          # player_info << players_hash
+        Player.create_players_from_api(players_hash)
+
+
+        page += 1
+      end
+      # player_info
+
+      # Player.create_players_from_api(player_info)
+      binding.pry
   end
+
 end
-
-# APIManager.get_nba_teams
-
 
 
 # => [{"id"=>14,
@@ -36,10 +65,3 @@ end
 #     "conference"=>"East",
 #     "division"=>"Central",
 #     "full_name"=>"Indiana Pacers",
-
-
-# {"id"=>12,
-# "abbreviation"=>"IND",
-# "city"=>"Indiana",
-# "conference"=>"East",
-# "division"=>"Central",

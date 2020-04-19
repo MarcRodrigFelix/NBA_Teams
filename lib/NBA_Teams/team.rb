@@ -1,26 +1,27 @@
+require 'pry'
 class Team
-  attr_accessor :name, :team_name, :abbreviation, :city, :conference, :division
+  attr_accessor :name, :team_name, :abbreviation, :city, :conference, :division, :id
 
   @@all = []
-  
+
   def self.all
     @@all
   end
 
-  def self.create(name: nil, team_name: nil, abbreviation: nil, city: nil, conference: nil, division: nil)
-    team = new(name: name, team_name: team_name, abbreviation: abbreviation, city: city, conference: conference, division: division)
+  def self.create(name: nil, team_name: nil, abbreviation: nil, city: nil, conference: nil, division: nil, id: nil)
+    team = new(name: name, team_name: team_name, abbreviation: abbreviation, city: city, conference: conference, division: division, id: id)
     team.save
     team
   end
 
   def self.create_team_from_api(teams_hash)
     teams_hash.each do |team|
-    self.create(assign_team_attrs(team))
+      self.create(assign_team_attrs(team))
     end
   end
 
   def self.assign_team_attrs(team)
-    teams.each_with_object({}) do |(k,v), mem|
+    team.each_with_object({}) do |(k,v), mem|
       if k == "full_name"
         mem[:team_name] = v
       else
@@ -29,13 +30,19 @@ class Team
     end
   end
 
-  def self.display_teams
-    puts team_data.collect
+  def initialize(name: nil, team_name: nil, abbreviation: nil, city: nil, conference: nil, division: nil, id: nil)
+    @name, @team_name, @abbreviation, @city, @id = name, team_name, abbreviation, city, id.to_i
+    @conference, @division = conference, division
   end
 
-  def initialize(name: nil, team_name: nil, abbreviation: nil, city: nil, conference: nil, division: nil)
-    @name, @team_name, @abbreviation, @city = @name, @team_name, @abbreviation, @city
-    @conference, @division = conference, division
+  def self.find_team_by_id(id)
+    Team.all.find{|t| t.id == id}
+  end
+
+  def add_player(player)
+    Player.all.select do |plyr|
+      plyr.team["id"] == self.id
+    end
   end
     
   def save
@@ -43,6 +50,7 @@ class Team
   end
 end
 
-teams = NBApi.get_nba_teams
-Team.create_team_from_api(teams)
-binding.pry
+# Team = Team.new()
+# Player = Player.new()
+
+# Player.team = Team

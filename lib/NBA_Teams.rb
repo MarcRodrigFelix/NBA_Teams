@@ -1,6 +1,7 @@
-require "NBA_Teams/version"
-
 module NBATeams
-  class Error < StandardError; end
-  # Your code goes here...
+  StandardError;
 end
+
+require_relative '../config/environment'
+# require "NBA_Teams/version"
+
