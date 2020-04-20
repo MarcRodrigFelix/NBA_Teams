@@ -5,6 +5,14 @@ class CLI
     APIManager.get_nba_players
     puts ""
     puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
     puts "          ============================================================          "
     puts ""
     puts ""
@@ -15,6 +23,11 @@ class CLI
     puts "          ============================================================          "
     puts ""
     puts "                   Would you like to begin? (Yes/Y or No/N)"
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+
 
     user_input = $stdin.gets.chomp
 
@@ -23,9 +36,7 @@ class CLI
     else
       exit
     end
-    
   end
-
 
 
   def start
@@ -52,6 +63,13 @@ class CLI
 
       user_input = $stdin.gets.chomp
       id = user_input.to_i
+        
+        if id > 30
+          puts "Wrong number, only 30 teams. Try again: "
+          user_input = $stdin.gets.chomp
+          id = user_input.to_i
+        end
+
       picked_id = Team.find_team_by_id(id)
       picked_players = Player.find_players_by_team_id(id)
 
@@ -66,16 +84,12 @@ class CLI
       puts ""
       puts ""
       puts ""
-      puts "                      Inspect roster? (Yes/Y or No/N)"
+      puts "                      Type in 'roster' to inspect roster : "
 
       roster_input = $stdin.gets.chomp
-      if roster_input == "Yes" || roster_input == "Y" || roster_input == "yes" || roster_input == "y"
+      if roster_input == "roster" || roster_input == "Roster"
         self.display_roster(picked_players)
       end
-      
-      #     brings up roster with assinged number 1 - last player
-      #       display_player_stats
-      #     user can exit or go to first screen to start over
       
 
       puts ""
@@ -122,11 +136,23 @@ class CLI
     puts ""
     puts ""
     puts ""
+    puts ""
+    puts ""
     puts "       * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
     puts "       *                                                                       *"
-    puts "       *                GoodBye, GoodBye.. GooooodBye....                      *"
+    puts "       *                                                                       *"
+    puts "       *                                                                       *"
+    puts "       *                GoodBye. GoodBye.. GooooodBye...                       *"
+    puts "       *                                                                       *"
+    puts "       *                                                                       *"
     puts "       *                                                                       *"
     puts "       * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
+    puts ""
   end
 
 

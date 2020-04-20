@@ -23,13 +23,13 @@ class APIManager
       players_total = meta["total_count"]
       players_per_page = data.count
 
-      page = 75
+      page = 80
       last_page = meta["total_pages"]
       player_info = []
 
       while page <= 131
         page_url = "https://www.balldontlie.io/api/v1/players?page=#{page}"
-        puts ""
+        puts "Please allow to fully load."
         puts "Loading.. #{page}/131"
         puts ""
 
@@ -37,7 +37,6 @@ class APIManager
         players_hash = page_response["data"]
 
         Player.create_players_from_api(players_hash)
-
 
         page += 1
       end
