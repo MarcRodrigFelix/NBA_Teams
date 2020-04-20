@@ -1,29 +1,21 @@
 # NBATeams
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/NBA_Teams`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to this ruby gem. Here you can view all 30 NBA teams. You can also choose to view the team's roster.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'NBA_Teams'
-```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
+Install with.
 
     $ gem install NBA_Teams
-
+  
 ## Usage
+    
+Run the application with.
+    
+    $ ruby bin/NBA_Teams
 
-TODO: Write usage instructions here
 
+    
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
