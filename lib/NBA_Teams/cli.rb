@@ -2,7 +2,7 @@ class CLI
   
   def call
     APIManager.get_nba_teams
-    # APIManager.get_nba_players
+    APIManager.get_nba_players
     puts ""
     puts ""
     puts "          ============================================================          "
@@ -50,10 +50,10 @@ class CLI
       puts ""
       puts ""
 
-
       user_input = $stdin.gets.chomp
       id = user_input.to_i
-      picked_team = Team.find_team_by_id(id)
+      picked_id = Team.find_team_by_id(id)
+      picked_players = Player.find_players_by_team_id(id)
 
       puts ""
       puts ""
@@ -61,19 +61,18 @@ class CLI
       puts ""
       puts ""
 
-      self.display_picked_team(picked_team)
+      self.display_picked_team(picked_id)
 
-      # puts "Inspect roster? (Yes/Y or No/N)"
-      # if user_input yes
-      #   show players with matching id
-      # end
-      # ask if user want to inspect roster
-       # yes will display all players with same team id ad Teams id.
+      puts ""
+      puts ""
+      puts ""
+      puts "                      Inspect roster? (Yes/Y or No/N)"
 
-
-      #   choose the teams hash and a players option to bring up info
-      #   user can choose a player or go back to first screen to choose teams
-      #   self.display_teams_roster
+      roster_input = $stdin.gets.chomp
+      if roster_input == "Yes" || roster_input == "Y" || roster_input == "yes" || roster_input == "y"
+        self.display_roster(picked_players)
+      end
+      
       #     brings up roster with assinged number 1 - last player
       #       display_player_stats
       #     user can exit or go to first screen to start over
@@ -96,7 +95,6 @@ class CLI
 
 
   def display_picked_team(picked_team)
-
       puts "#{picked_team.id}!! The #{picked_team.team_name}."
       puts "- - - - -"
       puts "Team abbreviation: #{picked_team.abbreviation}."
@@ -111,6 +109,13 @@ class CLI
       puts "- - - - -"
   end
 
+
+  def display_roster(picked_players)
+    picked_players.each do |player|
+        puts " Name: #{player.first_name} #{player.last_name} | Pos: #{player.position} | Ht: #{player.height_feet} | Wt: #{player.weight_pounds}."
+        puts "- - - - - - - - - - - - -"
+    end
+  end
 
   def exit
     puts ""
@@ -127,12 +132,3 @@ class CLI
 
 end
 
-
-
-
-
-
-
-        # ask for user input to inspect player-
-          # display choosen player-
-          # ask if player wants to choose another player or team, or exit-

@@ -38,19 +38,8 @@ class Team
   def self.find_team_by_id(id)
     Team.all.find{|t| t.id == id}
   end
-
-  def add_player(player)
-    Player.all.select do |plyr|
-      plyr.team["id"] == self.id
-    end
-  end
     
   def save
     @@all << self
   end
 end
-
-# Team = Team.new()
-# Player = Player.new()
-
-# Player.team = Team

@@ -23,45 +23,25 @@ class APIManager
       players_total = meta["total_count"]
       players_per_page = data.count
 
-      page = 1
+      page = 75
       last_page = meta["total_pages"]
       player_info = []
 
-      while page <= last_page
+      while page <= 131
         page_url = "https://www.balldontlie.io/api/v1/players?page=#{page}"
-        puts page_url
-        puts "page: #{page}"
+        puts ""
+        puts "Loading.. #{page}/131"
         puts ""
 
         page_response = HTTParty.get(page_url)
         players_hash = page_response["data"]
-        puts page_response
-        # Player.create_players_from_api(players_hash)
-          # player_info << players_hash
+
         Player.create_players_from_api(players_hash)
 
 
         page += 1
       end
-      # player_info
 
-      # Player.create_players_from_api(player_info)
-      binding.pry
   end
 
 end
-
-
-# => [{"id"=>14,
-#   "first_name"=>"Ike",
-#   "height_feet"=>nil,
-#   "height_inches"=>nil,
-#   "last_name"=>"Anigbogu",
-#   "position"=>"C",
-#   "team"=>
-#    {"id"=>12,
-#     "abbreviation"=>"IND",
-#     "city"=>"Indiana",
-#     "conference"=>"East",
-#     "division"=>"Central",
-#     "full_name"=>"Indiana Pacers",
