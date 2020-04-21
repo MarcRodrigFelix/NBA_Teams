@@ -1,7 +1,4 @@
-require 'httparty'
-require 'pry'
-require_relative './team'
-class APIManager
+class NBATeams::APIManager
 
   def self.get_nba_teams
     url = "https://www.balldontlie.io/api/v1/"
@@ -10,7 +7,7 @@ class APIManager
       response.parsed_response
       
       teams_hash = response["data"]
-      Team.create_team_from_api(teams_hash)
+      NBATeams::Team.create_team_from_api(teams_hash)
   end
 
   def self.get_nba_players
@@ -23,7 +20,7 @@ class APIManager
       players_total = meta["total_count"]
       players_per_page = data.count
 
-      page = 80
+      page = 130
       last_page = meta["total_pages"]
       player_info = []
 
@@ -36,7 +33,7 @@ class APIManager
         page_response = HTTParty.get(page_url)
         players_hash = page_response["data"]
 
-        Player.create_players_from_api(players_hash)
+        NBATeams::Player.create_players_from_api(players_hash)
 
         page += 1
       end

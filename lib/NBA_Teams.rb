@@ -1,7 +1,14 @@
+require_relative "./NBA_Teams/version"
+require 'pry'
+require 'httparty'
+
+# require_relative '../config/environment'
+require_relative './cli'
+require_relative './api_manager'
+require_relative './team'
+require_relative './player'
+
 module NBATeams
-  StandardError;
+  class Error < StandardError; end
+
 end
-
-require_relative '../config/environment'
-# require "NBA_Teams/version"
-

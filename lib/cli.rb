@@ -1,8 +1,8 @@
-class CLI
+class NBATeams::CLI
   
   def call
-    APIManager.get_nba_teams
-    APIManager.get_nba_players
+    NBATeams::APIManager.get_nba_teams
+    NBATeams::APIManager.get_nba_players
     puts ""
     puts ""
     puts ""
@@ -31,7 +31,7 @@ class CLI
 
     user_input = $stdin.gets.chomp
 
-    if user_input == "Yes" || user_input == "Y" || user_input == "yes" || user_input == "y"
+    if user_input.downcase == "yes" || user_input.downcase == "y"
       start
     else
       exit
@@ -62,46 +62,60 @@ class CLI
       puts ""
 
       user_input = $stdin.gets.chomp
-      id = user_input.to_i
-        
-        if id > 30
-          puts "Wrong number, only 30 teams. Try again: "
-          user_input = $stdin.gets.chomp
-          id = user_input.to_i
-        end
 
-      picked_id = Team.find_team_by_id(id)
-      picked_players = Player.find_players_by_team_id(id)
-
-      puts ""
-      puts ""
-      puts "You chose NUMBER... "
-      puts ""
-      puts ""
-
-      self.display_picked_team(picked_id)
-
-      puts ""
-      puts ""
-      puts ""
-      puts "                      Type in 'roster' to inspect roster : "
-
-      roster_input = $stdin.gets.chomp
-      if roster_input == "roster" || roster_input == "Roster"
-        self.display_roster(picked_players)
-      end
-      
-
-      puts ""
-      puts ""
-      puts ""
-      puts "            Would you like to inspect another Team? (Yes/Y or No/N)"
-      another_input = $stdin.gets.chomp
-
-      if another_input == "Yes" || another_input == "Y" || another_input == "yes" || another_input == "y"
-        start
+      if user_input.match(/[a-zA-Z]/)
+        puts "                      NO LETTERS, SORRY! TRY AGAIN: "
+        start 
       else
-        exit
+        id = user_input.to_i
+        
+        if id > 30 || id <= 0
+          puts "                  WRONG NUMBER. ONLY 30 TEAMS. TRY AGAIN: "
+          puts ""
+          puts ""
+          start
+        else
+
+          picked_id = NBATeams::Team.find_team_by_id(id)
+          picked_players = NBATeams::Player.find_players_by_team_id(id)
+
+          puts ""
+          puts ""
+          puts "You chose NUMBER... "
+          puts ""
+          puts ""
+
+          self.display_picked_team(picked_id)
+
+          puts ""
+          puts ""
+          puts ""
+          puts "                      Type in 'roster' to inspect roster : "
+          puts "             (no funny bussines here, type out 'roster' completely)"
+          puts "                    (...and no, you don't have an option...)"
+
+          roster_input = $stdin.gets.chomp
+          if roster_input.downcase == "roster"
+            self.display_roster(picked_players)
+          else
+            puts "           Somebody can't spell.. ahem.. ahem, lets try it again champ. "
+            roster_input = $stdin.gets.chomp
+            self.display_roster(picked_players) if roster_input.downcase == "roster"
+          end
+          
+
+          puts ""
+          puts ""
+          puts ""
+          puts "            Would you like to inspect another Team? (Yes/Y or No/N)"
+          another_input = $stdin.gets.chomp
+
+          if another_input.downcase == "yes" || another_input.downcase == "y"
+            start
+          else
+            exit
+          end
+        end
       end
 
     
@@ -109,7 +123,9 @@ class CLI
 
 
   def display_picked_team(picked_team)
-      puts "#{picked_team.id}!! The #{picked_team.team_name}."
+      puts "#{picked_team.id}!!"
+      puts "- - - - -"
+      puts "The #{picked_team.team_name}."
       puts "- - - - -"
       puts "Team abbreviation: #{picked_team.abbreviation}."
       puts "- - - - -"
@@ -126,8 +142,8 @@ class CLI
 
   def display_roster(picked_players)
     picked_players.each do |player|
-        puts " Name: #{player.first_name} #{player.last_name} | Pos: #{player.position} | Ht: #{player.height_feet} | Wt: #{player.weight_pounds}."
-        puts "- - - - - - - - - - - - -"
+        puts " Name: #{player.first_name} #{player.last_name} | Pos: #{player.position} | Ht: #{player.height_feet}'#{player.height_inches}\" | Wt: #{player.weight_pounds}."
+        puts "----------------------"
     end
   end
 

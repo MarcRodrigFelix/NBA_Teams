@@ -1,5 +1,5 @@
 require 'pry'
-class Team
+class NBATeams::Team
   attr_accessor :name, :team_name, :abbreviation, :city, :conference, :division, :id
 
   @@all = []
@@ -36,8 +36,11 @@ class Team
   end
 
   def self.find_team_by_id(id)
-    Team.all.find{|t| t.id == id}
+    NBATeams::Team.all.find{|t| t.id == id}
   end
+
+  # def self.find_player_by_first_name(name)
+  # end
     
   def save
     @@all << self

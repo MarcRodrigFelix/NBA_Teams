@@ -1,6 +1,4 @@
-require_relative './api_manager'
-require 'pry'
-class Player
+class NBATeams::Player
   attr_accessor :first_name, :last_name, :position, :height_feet, :height_inches, :weight_pounds, :team, :id
 
   @@all = []
@@ -41,7 +39,7 @@ class Player
   end
 
   def self.find_players_by_team_id(id)
-    Player.all.find_all{|plyr| plyr.team['id'] == id}
+    NBATeams::Player.all.find_all{|plyr| plyr.team['id'] == id}
   end
 
   def save
