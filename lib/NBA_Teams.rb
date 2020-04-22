@@ -2,7 +2,6 @@ require_relative "./NBA_Teams/version"
 require 'pry'
 require 'httparty'
 
-# require_relative '../config/environment'
 require_relative './cli'
 require_relative './api_manager'
 require_relative './team'

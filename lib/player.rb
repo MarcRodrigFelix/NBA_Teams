@@ -41,7 +41,7 @@ class NBATeams::Player
   def self.find_players_by_team_id(id)
     NBATeams::Player.all.find_all{|plyr| plyr.team['id'] == id}
   end
-
+  
   def save
     @@all << self
   end

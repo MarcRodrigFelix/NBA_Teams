@@ -76,7 +76,7 @@ class NBATeams::CLI
           start
         else
 
-          picked_id = NBATeams::Team.find_team_by_id(id)
+          picked_team = NBATeams::Team.find_team_by_id(id)
           picked_players = NBATeams::Player.find_players_by_team_id(id)
 
           puts ""
@@ -85,7 +85,7 @@ class NBATeams::CLI
           puts ""
           puts ""
 
-          self.display_picked_team(picked_id)
+          self.display_picked_team(picked_team)
 
           puts ""
           puts ""
@@ -154,15 +154,15 @@ class NBATeams::CLI
     puts ""
     puts ""
     puts ""
-    puts "       * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-    puts "       *                                                                       *"
-    puts "       *                                                                       *"
-    puts "       *                                                                       *"
-    puts "       *                GoodBye. GoodBye.. GooooodBye...                       *"
-    puts "       *                                                                       *"
-    puts "       *                                                                       *"
-    puts "       *                                                                       *"
-    puts "       * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+    puts "     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+    puts "     *                                                                   *"
+    puts "     *                                                                   *"
+    puts "     *                                                                   *"
+    puts "     *                GoodBye. GoodBye.. GooooodBye...                   *"
+    puts "     *                                                                   *"
+    puts "     *                                                                   *"
+    puts "     *                                                                   *"
+    puts "     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
     puts ""
     puts ""
     puts ""

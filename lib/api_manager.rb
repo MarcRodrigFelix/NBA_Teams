@@ -2,10 +2,8 @@ class NBATeams::APIManager
 
   def self.get_nba_teams
     url = "https://www.balldontlie.io/api/v1/"
-
       response = HTTParty.get(url + "teams")
-      response.parsed_response
-      
+
       teams_hash = response["data"]
       NBATeams::Team.create_team_from_api(teams_hash)
   end
@@ -17,12 +15,11 @@ class NBATeams::APIManager
       data = response["data"]
       meta = response["meta"]
 
-      players_total = meta["total_count"]
       players_per_page = data.count
+      players_total = meta["total_count"]
 
-      page = 130
+      page = 100
       last_page = meta["total_pages"]
-      player_info = []
 
       while page <= 131
         page_url = "https://www.balldontlie.io/api/v1/players?page=#{page}"
