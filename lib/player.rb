@@ -15,7 +15,7 @@ class NBATeams::Player
 
   def self.create_players_from_api(players_hash)
     players_hash.each do |player|
-      if player['height_feet'].nil? || player['weight_pounds'].nil?
+      if player['height_feet'].nil? || player['weight_pounds'].nil? || player['position'].nil?
         next
       else
         self.create(assign_player_attr(player))

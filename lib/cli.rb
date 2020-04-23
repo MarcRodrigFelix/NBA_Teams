@@ -126,7 +126,7 @@ class NBATeams::CLI
       puts "#{picked_team.id}!!"
       puts "===="
       puts "The #{picked_team.team_name}."
-      puts "="
+      puts "========================"
       puts "Team abbreviation: #{picked_team.abbreviation}."
       puts "================="
       puts "City of team: #{picked_team.city}."
