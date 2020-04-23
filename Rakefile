@@ -1,8 +1,8 @@
 require "bundler/gem_tasks"
-require "./config/environment"
+# require "./config/environment"
 
-task :console do
-  Pry.start
-end
+# task :console do
+#   Pry.start
+# end
 
 task :default => :spec

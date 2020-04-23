@@ -15,7 +15,7 @@ class NBATeams::CLI
     puts ""
     puts ""
     puts "            Welcome, you can inspect any NBA team of your choice.               "
-    puts "               You may inspect a teams roster as well. Enjoy!                   "
+    puts "                 You may also inspect a teams roster. Enjoy!                   "
     puts ""
     puts ""
     puts "          ============================================================          "
