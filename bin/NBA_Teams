@@ -2,4 +2,4 @@
 
 require_relative '../lib/NBA_Teams'
 
-NBATeams::CLI.new.call
+NBATeams::CLI.new.start

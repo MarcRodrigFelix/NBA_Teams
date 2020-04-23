@@ -1,10 +1,8 @@
 class NBATeams::CLI
   
-  def call
+  def start
     NBATeams::APIManager.get_nba_teams
     NBATeams::APIManager.get_nba_players
-    puts ""
-    puts ""
     puts ""
     puts ""
     puts ""
@@ -29,17 +27,17 @@ class NBATeams::CLI
     puts ""
 
 
-    user_input = $stdin.gets.chomp
+    input = $stdin.gets.chomp
 
-    if user_input.downcase == "yes" || user_input.downcase == "y"
-      start
+    if input.downcase == "yes" || input.downcase == "y"
+      app
     else
       exit
     end
   end
 
 
-  def start
+  def app
 
       puts "                            ===================="
       puts ""
@@ -65,7 +63,7 @@ class NBATeams::CLI
 
       if user_input.match(/[a-zA-Z]/)
         puts "                      NO LETTERS, SORRY! TRY AGAIN: "
-        start 
+        app 
       else
         id = user_input.to_i
         
@@ -73,7 +71,7 @@ class NBATeams::CLI
           puts "                  WRONG NUMBER. ONLY 30 TEAMS. TRY AGAIN: "
           puts ""
           puts ""
-          start
+          app
         else
 
           picked_team = NBATeams::Team.find_team_by_id(id)
@@ -93,8 +91,10 @@ class NBATeams::CLI
           puts "                      Type in 'roster' to inspect roster : "
           puts "             (no funny bussines here, type out 'roster' completely)"
           puts "                    (...and no, you don't have an option...)"
+          
 
           roster_input = $stdin.gets.chomp
+
           if roster_input.downcase == "roster"
             self.display_roster(picked_players)
           else
@@ -111,7 +111,7 @@ class NBATeams::CLI
           another_input = $stdin.gets.chomp
 
           if another_input.downcase == "yes" || another_input.downcase == "y"
-            start
+            app
           else
             exit
           end
@@ -124,32 +124,30 @@ class NBATeams::CLI
 
   def display_picked_team(picked_team)
       puts "#{picked_team.id}!!"
-      puts "- - - - -"
+      puts "===="
       puts "The #{picked_team.team_name}."
-      puts "- - - - -"
+      puts "="
       puts "Team abbreviation: #{picked_team.abbreviation}."
-      puts "- - - - -"
+      puts "================="
       puts "City of team: #{picked_team.city}."
-      puts "- - - - -"
+      puts "============"
       puts "Team name: #{picked_team.name}."
-      puts "- - - - -"
+      puts "=========="
       puts "Conference: #{picked_team.conference}. The NBA has 2 conference's (East/West)." 
-      puts "- - - - -" 
+      puts "==========" 
       puts "Division: #{picked_team.division}. There are 6 total divisions in the NBA."
-      puts "- - - - -"
+      puts "========"
   end
 
 
   def display_roster(picked_players)
     picked_players.each do |player|
         puts " Name: #{player.first_name} #{player.last_name} | Pos: #{player.position} | Ht: #{player.height_feet}'#{player.height_inches}\" | Wt: #{player.weight_pounds}."
-        puts "----------------------"
+        puts "===================================================="
     end
   end
 
   def exit
-    puts ""
-    puts ""
     puts ""
     puts ""
     puts ""
@@ -163,8 +161,6 @@ class NBATeams::CLI
     puts "     *                                                                   *"
     puts "     *                                                                   *"
     puts "     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-    puts ""
-    puts ""
     puts ""
     puts ""
     puts ""
