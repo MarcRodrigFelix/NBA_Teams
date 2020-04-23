@@ -1,16 +1,16 @@
 # NBATeams
 
-Welcome to this ruby gem. Here you can view all 30 NBA teams. You can also choose to view the team's roster.
+Welcome to this Ruby Gem. Here you can view all 30 NBA teams. You can also choose to view the team's roster. You may view as many teams as you want.
 
 ## Installation
 
-Install with.
+Install with:
 
     $ gem install NBA_Teams
   
 ## Usage
     
-Run the application with.
+Run the application with:
     
     $ ruby bin/NBA_Teams
 
